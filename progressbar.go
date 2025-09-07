@@ -41,10 +41,10 @@ func GetNewProgressBar() ProgressBar {
 // progressBar returns the progress bar string with the current parameters
 func (p *progressBar) render() string {
 	occupancy := uint8((float32(p.barLen) / 100) * float32(p.percent))
-	fill := uint8(p.barLen - occupancy)
+	fill := p.barLen - occupancy
 	startPart := fmt.Sprintf("%s%s%s", p.color[0], p.edges[0], p.color[1])
-	filledPart := string(p.capString)
-	emptyPart := string(p.emptyString)
+	filledPart := p.capString
+	emptyPart := p.emptyString
 	endPart := fmt.Sprintf("%s%s%s%s", colorReset, p.color[0], p.edges[1], colorReset)
 
 	var sb strings.Builder
