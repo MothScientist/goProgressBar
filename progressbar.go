@@ -23,6 +23,7 @@ var defaultConfig = config{
 	colors:  [2]string{ColorWhite, ColorGreen},
 }
 
+// GetNewProgressBar get the progress bar object
 func GetNewProgressBar() ProgressBar {
 	return &progressBar{
 		barLen:       50,
