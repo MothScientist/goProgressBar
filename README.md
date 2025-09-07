@@ -29,3 +29,8 @@ func main() {
 	}
 }
 ```
+
+![example1.png](example1.png)
+![example2.png](example2.png)
+![example3.png](example3.png)
+![example4.png](example4.png)
