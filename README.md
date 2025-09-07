@@ -30,7 +30,7 @@ func main() {
 }
 ```
 
-![example1.png](example1.png)
-![example2.png](example2.png)
-![example3.png](example3.png)
-![example4.png](example4.png)
+![example1.png](images/example1.png)
+![example2.png](images/example2.png)
+![example3.png](images/example3.png)
+![example4.png](images/example4.png)
