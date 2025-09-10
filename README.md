@@ -28,8 +28,7 @@ func main() {
 	bar.SetBarLen(100)
 
 	for i := 30; i <= 100; i++ {
-		progressBar, _ := bar.Update(i)
-		fmt.Println(progressBar)
+		fmt.Println(bar.Update(i))
 		time.Sleep(300 * time.Millisecond)
 	}
 }
