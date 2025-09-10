@@ -5,7 +5,8 @@ import "testing"
 func TestBase(t *testing.T) {
 	bar := GetNewProgressBar()
 	bar.SetSpinner(Spinners[6])
-	result := len(bar.Update(0))
+	pg, _ := bar.Update(0)
+	result := len(pg)
 	expected := 172
 	if result != expected {
 		t.Errorf(`expected %d, want %d`, expected, result)
@@ -18,7 +19,8 @@ func TestSpinnerState(t *testing.T) {
 	bar.SetSpinner(spinner)
 	spinnerLen := len(spinner)
 	for i := range spinnerLen {
-		result := string([]rune(bar.Update(uint8(i)))[0])
+		pg, _ := bar.Update(i)
+		result := string([]rune(pg)[0])
 		expected := spinner[i]
 		if result != spinner[i] {
 			t.Errorf(`expected %s, want %s`, expected, result)
@@ -26,7 +28,7 @@ func TestSpinnerState(t *testing.T) {
 	}
 }
 
-func TestChangeSpinner(t *testing.T){
+func TestChangeSpinner(t *testing.T) {
 	bar := GetNewProgressBar()
 	bar.SetSpinner(Spinners[6])
 	// Check that baseConfig has not been touched
@@ -35,21 +37,23 @@ func TestChangeSpinner(t *testing.T){
 	}
 }
 
-func TestChangeFillers(t *testing.T){}
+func TestChangeFillers(t *testing.T) {}
 
-func TestChangeColors(t *testing.T){}
+func TestChangeColors(t *testing.T) {}
 
-func TestChangeEdges(t *testing.T){}
+func TestChangeEdges(t *testing.T) {}
 
-func TestChangeWithPercent(t *testing.T){}
+func TestChangeWithPercent(t *testing.T) {}
 
-func TestChangeWithSpinner(t *testing.T){}
+func TestChangeWithSpinner(t *testing.T) {}
 
 func TestWithoutColors(t *testing.T) {
 	bar := GetNewProgressBar()
-	result1 := len(bar.Update(0))
+	pg1, _ := bar.Update(0)
+	result1 := len(pg1)
 	bar.SetColors([2]string{"", ""})
-	result2 := len(bar.Update(0))
+	pg2, _ := bar.Update(0)
+	result2 := len(pg2)
 	diff := result1 - 5
 	if diff != result2 {
 		t.Errorf(`invalid number of bytes in string when color is missing %d, want %d`, result2, diff)

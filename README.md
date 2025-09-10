@@ -27,8 +27,8 @@ func main() {
 	bar.SetColors([2]string{"", progressbar.ColorPurple})
 	bar.SetBarLen(100)
 
-	for i := uint8(30); i <= 100; i++ {
-		progressBar := bar.Update(i)
+	for i := 30; i <= 100; i++ {
+		progressBar, _ := bar.Update(i)
 		fmt.Println(progressBar)
 		time.Sleep(300 * time.Millisecond)
 	}

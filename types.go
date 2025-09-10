@@ -12,23 +12,23 @@ type progressBarConfig struct {
 
 // ProgressBar the interface defines methods for working with the progress bar
 type ProgressBar interface {
-    Update(percent uint8) string
+    Update(percent int) (string, error)
     SetColors(newColors [2]string)
-    SetPercent(newPercent uint8) error
-    SetBarLen(newBarLen uint8)
+    SetPercent(newPercent int) error
+    SetBarLen(newBarLen int) error
     SetEdges(newEdges [2]string)
     SetFillers(newFillers [2]string)
 	SetSpinner(newSpinner []string)
     WithPercent(show bool)
     WithSpinner(show bool)
-    GetCurrentPercent() uint8
+    GetCurrentPercent() int
 }
 
 // progressBar structure containing all elements and settings of the progress bar
 type progressBar struct {
-	barLen       uint8
-	percent      uint8
+	barLen       int
+	percent      int
 	config       progressBarConfig
-	spinnerState uint8
-	spinnerLen   uint8
+	spinnerState int
+	spinnerLen   int
 }

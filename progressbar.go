@@ -28,7 +28,6 @@ var Spinners = map[uint8][]string{
 	6: {"*  ", " * ", "  *"},
 }
 
-
 // Fillers built-in fillers for progress bar
 var Fillers = map[uint8][2]string{
 	0: {"█", "░"},
@@ -53,17 +52,18 @@ func GetNewProgressBar() ProgressBar {
 		percent:      0,
 		config:       baseConfig,
 		spinnerState: 0,
-		spinnerLen:   uint8(len(baseConfig.spinner)),
+		spinnerLen:   len(baseConfig.spinner),
 	}
 }
 
 // progressBar returns the progress bar string with the current parameters
 func (p *progressBar) render() string {
-	occupancy := uint8((float32(p.barLen) / 100) * float32(p.percent))
+	occupancy := int((float32(p.barLen) / 100) * float32(p.percent))
 	fill := p.barLen - occupancy
+
 	startPart := fmt.Sprintf("%s%s%s", p.config.colors[0], p.config.edges[0], p.config.colors[1])
 	filledPart := p.config.fillers[0]
-	emptyPart := p.config.fillers[1] // (filledPart + emptyPart) >= barLen bytes
+	emptyPart := p.config.fillers[1]
 	endPart := fmt.Sprintf("%s%s%s", colorReset, p.config.colors[0], p.config.edges[1])
 
 	var spinnerPart string
@@ -85,9 +85,9 @@ func (p *progressBar) render() string {
 
 	// Calculate how many bytes are required for the final string
 	bytesToWrite := len(startPart) + len(endPart) + // Progress bar edges
-					len(spinnerPart) + len(percentPart) + // Optional parts
-					(len(filledPart) * int(occupancy)) + (len(emptyPart) * int(fill)) + // Fillers
-					len(colorReset) // Reset color
+		len(spinnerPart) + len(percentPart) + // Optional parts
+		(len(filledPart) * occupancy) + (len(emptyPart) * fill) + // Fillers
+		len(colorReset) // Reset color
 	var sb strings.Builder
 	sb.Grow(bytesToWrite) // Allocate the required memory for the string
 
@@ -96,8 +96,8 @@ func (p *progressBar) render() string {
 	}
 
 	sb.WriteString(startPart)
-	sb.WriteString(strings.Repeat(filledPart, int(occupancy)))
-	sb.WriteString(strings.Repeat(emptyPart, int(fill)))
+	sb.WriteString(strings.Repeat(filledPart, occupancy))
+	sb.WriteString(strings.Repeat(emptyPart, fill))
 	sb.WriteString(endPart)
 
 	if p.config.withPercent {
