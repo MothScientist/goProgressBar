@@ -5,8 +5,12 @@ import "fmt"
 // Update updates the percentage and returns the string for display
 func (p *progressBar) Update(percent uint8) string {
 	p.percent = percent
-	if p.withSpinner {
-		p.spinnerState = (p.spinnerState + 1) % p.spinnerLen
+	if p.config.withSpinner {
+		if percent == 0 {
+			p.spinnerState = 0
+		} else {
+			p.spinnerState = (p.spinnerState + 1) % p.spinnerLen
+		}
 	}
 	return p.render()
 }
@@ -14,16 +18,7 @@ func (p *progressBar) Update(percent uint8) string {
 
 // SetColors sets colors for frames, informers and fill
 func (p *progressBar) SetColors(newColors [2]string) {
-	p.color = newColors
-}
-
-// SetSpinnerState sets the spinner state
-func (p *progressBar) SetSpinnerState(newState uint8) error {
-	if p.spinnerState >= p.spinnerLen {
-		return fmt.Errorf("параметр spinner не должен быть более %d, сейчас он равен %d", p.spinnerLen, p.spinnerState)
-	}
-	p.spinnerState = newState
-	return nil
+	p.config.colors = newColors
 }
 
 // SetPercent sets the fill percentage
@@ -42,27 +37,29 @@ func (p *progressBar) SetBarLen(newBarLen uint8) {
 
 // SetEdges sets edge symbols
 func (p *progressBar) SetEdges(newEdges [2]string) {
-	p.edges = newEdges
+	p.config.edges = newEdges
 }
 
-// SetCapString sets the fill character
-func (p *progressBar) SetCapString(newCapString string) {
-	p.capString = newCapString
+// SetFillers sets the fill and void characters
+func (p *progressBar) SetFillers(newFillers [2]string) {
+	p.config.fillers = newFillers
 }
 
-// SetEmptyString sets the void symbol
-func (p *progressBar) SetEmptyString(newEmptyString string) {
-	p.emptyString = newEmptyString
+// SetSpinner sets new spinner in progress bar
+func (p *progressBar) SetSpinner(newSpinner []string) {
+	p.config.spinner = newSpinner
+	p.spinnerLen = uint8(len(newSpinner))
+	p.spinnerState = 0
 }
 
 // WithPercent turns on/off the display of percentages
 func (p *progressBar) WithPercent(show bool) {
-	p.withPercent = show
+	p.config.withPercent = show
 }
 
 // WithSpinner turns the spinner on/off
 func (p *progressBar) WithSpinner(show bool) {
-	p.withSpinner = show
+	p.config.withSpinner = show
 }
 
 // GetCurrentPercent get a set percentage

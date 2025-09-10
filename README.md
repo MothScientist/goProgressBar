@@ -20,8 +20,13 @@ import (
 
 func main() {
 	bar := progressbar.GetNewProgressBar()
-	bar.SetColors([2]string{progressbar.ColorWhite, progressbar.ColorPurple})
+
+	bar.SetSpinner(progressbar.Spinners[1])
+	// There is no point in setting the color white in the console,
+	// you can save bytes by setting an empty string instead
+	bar.SetColors([2]string{"", progressbar.ColorPurple})
 	bar.SetBarLen(100)
+
 	for i := uint8(30); i <= 100; i++ {
 		progressBar := bar.Update(i)
 		fmt.Println(progressBar)
