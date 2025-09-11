@@ -1,3 +1,5 @@
+# goProgressBar
+
 - __Easy to use__
 - __Large selection of built-in options__
 - __Optimized__
@@ -5,10 +7,12 @@
 
 ## Installation
 
-```
+```sh
 go get github.com/MothScientist/goProgressBar@latest
 ```
+
 ## Launch
+
 ```go
 package main
 
@@ -35,5 +39,9 @@ func main() {
 	}
 }
 ```
+
 ## Examples
+
 ![example5.png](images/example5.png)
+![example5.png](images/example1.png)
+![example5.png](images/example3.png)
