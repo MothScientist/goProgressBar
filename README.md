@@ -24,11 +24,12 @@ func main() {
 	bar.SetSpinner(progressbar.Spinners[1])
 	// There is no point in setting the color white in the console,
 	// you can save bytes by setting an empty string instead
-	bar.SetColors([2]string{"", progressbar.ColorPurple})
+	bar.SetColors([2]string{"", progressbar.ColorMagenta})
 	bar.SetBarLen(100)
 
 	for i := 30; i <= 100; i++ {
-		fmt.Println(bar.Update(i))
+		pg, _ := bar.Update(i)
+		fmt.Println(pg)
 		time.Sleep(300 * time.Millisecond)
 	}
 }

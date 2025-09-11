@@ -18,7 +18,7 @@ type ProgressBar interface {
     SetBarLen(newBarLen int) error
     SetEdges(newEdges [2]string)
     SetFillers(newFillers [2]string)
-	SetSpinner(newSpinner []string)
+	SetSpinner(newSpinner []string) error
     WithPercent(show bool)
     WithSpinner(show bool)
     GetCurrentPercent() int

@@ -1,6 +1,10 @@
 package progressbar
 
-import "testing"
+import (
+	"fmt"
+	"math/rand"
+	"testing"
+)
 
 func TestBase(t *testing.T) {
 	bar := GetNewProgressBar()
@@ -76,7 +80,47 @@ func TestZeroLenBar(t *testing.T) {
 	pg2, _ := bar.Update(0)
 
 	bytesOneSymbol := 3
-	if len(pg2) != len(pg1) + bytesOneSymbol {
-		t.Errorf(`invalid string length %d, want %d`, len(pg2), len(pg1) + bytesOneSymbol)
+	if len(pg2) != len(pg1)+bytesOneSymbol {
+		t.Errorf(`invalid string length %d, want %d`, len(pg2), len(pg1)+bytesOneSymbol)
 	}
+}
+
+func TestPrint(t *testing.T) {
+	bar := GetNewProgressBar()
+	bar.SetBarLen(100)
+	bar.SetColors([2]string{ColorBrightBlue, ColorBrightCyan})
+	bar.SetEdges([2]string{"{", "}"})
+	bar.SetFillers([2]string{"#", " "})
+	bar.SetSpinner(Spinners[0])
+	for range 15 {
+		cntr := rand.Intn(100)
+		res, _ := bar.Update(cntr)
+		fmt.Println(res)
+	}
+	fmt.Print("\n\n")
+	bar.SetColors([2]string{ColorBrightWhite, ColorBrightGreen})
+	bar.SetSpinner(Spinners[1])
+	for i := 15; i <= 30; i++ {
+		res, _ := bar.Update(i)
+		fmt.Println(res)
+	}
+	fmt.Print("\n\n")
+	bar.SetColors([2]string{ColorBrightYellow, ColorBrightRed})
+	bar.SetEdges([2]string{"[", "]"})
+	bar.SetFillers([2]string{"|", " "})
+	bar.SetSpinner(Spinners[2])
+	for i := 30; i <= 45; i++ {
+		res, _ := bar.Update(i)
+		fmt.Println(res)
+	}
+	fmt.Print("\n\n")
+	bar.SetColors([2]string{ColorBrightYellow, ColorBrightMagenta})
+	bar.SetEdges([2]string{"{", "}"})
+	bar.SetFillers([2]string{"-", " "})
+	bar.SetSpinner(Spinners[5])
+	for i := 35; i <= 50; i++ {
+		res, _ := bar.Update(i)
+		fmt.Println(res)
+	}
+	fmt.Print("\n\n")
 }

@@ -6,15 +6,23 @@ import (
 )
 
 const (
-	ColorWhite  = "\033[37m"
-	ColorRed    = "\033[31m"
-	ColorGreen  = "\033[32m"
-	ColorYellow = "\033[33m"
-	ColorBlue   = "\033[34m"
-	ColorPurple = "\033[35m"
-	ColorCyan   = "\033[36m"
-	ColorGray   = "\033[37m"
-	colorReset  = "\033[0m"
+	ColorBlack         = "\033[30m"
+	ColorRed           = "\033[31m"
+	ColorGreen         = "\033[32m"
+	ColorYellow        = "\033[33m"
+	ColorBlue          = "\033[34m"
+	ColorMagenta       = "\033[35m"
+	ColorCyan          = "\033[36m"
+	ColorWhite         = "\033[37m"
+	ColorBrightBlack   = "\033[90m"
+	ColorBrightRed     = "\033[91m"
+	ColorBrightGreen   = "\033[92m"
+	ColorBrightYellow  = "\033[93m"
+	ColorBrightBlue    = "\033[94m"
+	ColorBrightMagenta = "\033[95m"
+	ColorBrightCyan    = "\033[96m"
+	ColorBrightWhite   = "\033[97m"
+	colorReset         = "\033[0m"
 )
 
 // Spinners built-in spinners for progress bar

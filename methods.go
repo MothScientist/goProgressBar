@@ -5,7 +5,7 @@ import "fmt"
 // Update updates the percentage and returns the string for display
 func (p *progressBar) Update(percent int) (string, error) {
 	if percent < 0 || percent > 100 {
-		return "", fmt.Errorf("the percent parameter must be no less than 0 and no more than 100")
+		return "", fmt.Errorf("the percent parameter must be no less than 0 and no more than 100, percent = %d", percent)
 	}
 	p.percent = percent
 	if p.config.withSpinner {
@@ -27,7 +27,7 @@ func (p *progressBar) SetColors(newColors [2]string) {
 // SetPercent sets the fill percentage
 func (p *progressBar) SetPercent(newPercent int) error {
 	if newPercent > 100 {
-		return fmt.Errorf("the percent variable must not be greater than 100")
+		return fmt.Errorf("the percent variable must not be greater than 100, newPercent = %d", newPercent)
 	}
 	p.percent = newPercent
 	return nil
@@ -36,7 +36,7 @@ func (p *progressBar) SetPercent(newPercent int) error {
 // SetBarLen sets the length of the progress bar
 func (p *progressBar) SetBarLen(newBarLen int) error {
 	if newBarLen < 0 {
-		return fmt.Errorf("newBarLen value must not be less than 0")
+		return fmt.Errorf("newBarLen value must not be less than 0, newBarLen = %d", newBarLen)
 	}
 	p.barLen = newBarLen
 	return nil
@@ -53,10 +53,15 @@ func (p *progressBar) SetFillers(newFillers [2]string) {
 }
 
 // SetSpinner sets new spinner in progress bar
-func (p *progressBar) SetSpinner(newSpinner []string) {
+func (p *progressBar) SetSpinner(newSpinner []string) error {
+	newSpinnerLen := len(newSpinner)
+	if newSpinnerLen < 1 {
+		return fmt.Errorf("spinner cut length cannot be less than 1, current length: %d", newSpinnerLen)
+	}
 	p.config.spinner = newSpinner
-	p.spinnerLen = len(newSpinner)
+	p.spinnerLen = newSpinnerLen
 	p.spinnerState = 0
+	return nil
 }
 
 // WithPercent turns on/off the display of percentages
