@@ -1,13 +1,14 @@
-# goProgressBar
+- __Easy to use__
+- __Large selection of built-in options__
+- __Optimized__
+- __No external dependencies__
 
-Very simple and easy to use progress bar for console
-
-## Examples
+## Installation
 
 ```
 go get github.com/MothScientist/goProgressBar@latest
 ```
-
+## Launch
 ```go
 package main
 
@@ -34,8 +35,5 @@ func main() {
 	}
 }
 ```
-
-![example1.png](images/example1.png)
-![example2.png](images/example2.png)
-![example3.png](images/example3.png)
-![example4.png](images/example4.png)
+## Examples
+![example5.png](images/example5.png)
