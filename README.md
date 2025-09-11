@@ -43,7 +43,6 @@ func main() {
 ## Examples
 
 ![example4.png](images/example4.png)
-![example5.png](images/example5.png)
 ![example1.png](images/example1.png)
 ![example3.png](images/example3.png)
 ![example2.png](images/example2.png)
