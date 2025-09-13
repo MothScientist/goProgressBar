@@ -15,9 +15,8 @@ func (p *progressBar) Update(percent int) (string, error) {
 			p.spinnerState = (p.spinnerState + 1) % p.spinnerLen
 		}
 	}
-	return p.render(),  nil
+	return p.render(), nil
 }
-
 
 // SetColors sets colors for frames, informers and fill
 func (p *progressBar) SetColors(newColors [2]string) {
@@ -72,6 +71,11 @@ func (p *progressBar) WithPercent(show bool) {
 // WithSpinner turns the spinner on/off
 func (p *progressBar) WithSpinner(show bool) {
 	p.config.withSpinner = show
+}
+
+// ReverseSpinner меняет спиннер и счетчик процентов местами
+func (p *progressBar) ReverseSpinner(reverse bool) {
+	p.config.reverseSpinner = reverse
 }
 
 // GetCurrentPercent get a set percentage
