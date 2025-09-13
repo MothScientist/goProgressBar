@@ -37,13 +37,13 @@ var baseConfig = progressBarConfig{
 }
 
 // GetNewProgressBar get the progress bar object
-func GetNewProgressBar() ProgressBar {
+func GetNewProgressBar() *progressBar {
 	return &progressBar{
-		barLen:       50,
-		percent:      0,
-		config:       baseConfig,
-		spinnerState: 0,
-		spinnerLen:   len(baseConfig.spinner),
+		barLen:            50,
+		percent:           0,
+		spinnerState:      0,
+		spinnerLen:        len(baseConfig.spinner),
+		progressBarConfig: baseConfig,
 	}
 }
 
@@ -60,24 +60,24 @@ func (p *progressBar) render() string {
 	// ^
 	// edge
 
-	startPart := fmt.Sprintf("%s%s", p.config.edges[0], p.config.colors[1])
-	filledPart := p.config.fillers[0]
-	emptyPart := p.config.fillers[1]
-	endPart := fmt.Sprintf("%s%s%s", colorReset, p.config.colors[0], p.config.edges[1])
+	startPart := fmt.Sprintf("%s%s", p.edges[0], p.colors[1])
+	filledPart := p.fillers[0]
+	emptyPart := p.fillers[1]
+	endPart := fmt.Sprintf("%s%s%s", colorReset, p.colors[0], p.edges[1])
 
 	var spinnerPart string
-	if p.config.withSpinner {
-		if !p.config.reverseSpinner {
-			spinnerPart = fmt.Sprintf("%s ", p.config.spinner[p.spinnerState])
+	if p.withSpinner {
+		if !p.reverseSpinner {
+			spinnerPart = fmt.Sprintf("%s ", p.spinner[p.spinnerState])
 
 		} else {
-			spinnerPart = fmt.Sprintf(" %s", p.config.spinner[p.spinnerState])
+			spinnerPart = fmt.Sprintf(" %s", p.spinner[p.spinnerState])
 		}
 	}
 
 	var percentPart string
-	if p.config.withPercent {
-		if !p.config.reverseSpinner {
+	if p.withPercent {
+		if !p.reverseSpinner {
 			percentPart = fmt.Sprintf(" %d%%", p.percent)
 		} else {
 			percentPart = fmt.Sprintf("%d%% ", p.percent)
@@ -85,7 +85,7 @@ func (p *progressBar) render() string {
 	}
 
 	// Calculate how many bytes are required for the final string
-	bytesToWrite := len(p.config.colors[0]) +
+	bytesToWrite := len(p.colors[0]) +
 		len(startPart) + len(endPart) + // Progress bar edges
 		len(spinnerPart) + len(percentPart) + // Optional parts
 		(len(filledPart) * occupancy) + (len(emptyPart) * fill) + // Fillers
@@ -93,11 +93,11 @@ func (p *progressBar) render() string {
 	var sb strings.Builder
 	sb.Grow(bytesToWrite) // Allocate the required memory for the string
 
-	sb.WriteString(p.config.colors[0])
+	sb.WriteString(p.colors[0])
 
-	if !p.config.reverseSpinner && p.config.withSpinner {
+	if !p.reverseSpinner && p.withSpinner {
 		sb.WriteString(spinnerPart)
-	} else if p.config.reverseSpinner && p.config.withPercent {
+	} else if p.reverseSpinner && p.withPercent {
 		sb.WriteString(percentPart)
 	}
 
@@ -106,9 +106,9 @@ func (p *progressBar) render() string {
 	sb.WriteString(strings.Repeat(emptyPart, fill))
 	sb.WriteString(endPart)
 
-	if !p.config.reverseSpinner && p.config.withPercent {
+	if !p.reverseSpinner && p.withPercent {
 		sb.WriteString(percentPart)
-	} else if p.config.reverseSpinner && p.config.withSpinner {
+	} else if p.reverseSpinner && p.withSpinner {
 		sb.WriteString(spinnerPart)
 	}
 

@@ -8,7 +8,7 @@ func (p *progressBar) Update(percent int) (string, error) {
 		return "", fmt.Errorf("the percent parameter must be no less than 0 and no more than 100, percent = %d", percent)
 	}
 	p.percent = percent
-	if p.config.withSpinner {
+	if p.withSpinner {
 		if percent == 0 {
 			p.spinnerState = 0
 		} else {
@@ -20,7 +20,7 @@ func (p *progressBar) Update(percent int) (string, error) {
 
 // SetColors sets colors for frames, informers and fill
 func (p *progressBar) SetColors(newColors [2]string) {
-	p.config.colors = newColors
+	p.colors = newColors
 }
 
 // SetPercent sets the fill percentage
@@ -43,12 +43,12 @@ func (p *progressBar) SetBarLen(newBarLen int) error {
 
 // SetEdges sets edge symbols
 func (p *progressBar) SetEdges(newEdges [2]string) {
-	p.config.edges = newEdges
+	p.edges = newEdges
 }
 
 // SetFillers sets the fill and void characters
 func (p *progressBar) SetFillers(newFillers [2]string) {
-	p.config.fillers = newFillers
+	p.fillers = newFillers
 }
 
 // SetSpinner sets new spinner in progress bar
@@ -57,7 +57,7 @@ func (p *progressBar) SetSpinner(newSpinner []string) error {
 	if newSpinnerLen < 1 {
 		return fmt.Errorf("spinner cut length cannot be less than 1, current length: %d", newSpinnerLen)
 	}
-	p.config.spinner = newSpinner
+	p.spinner = newSpinner
 	p.spinnerLen = newSpinnerLen
 	p.spinnerState = 0
 	return nil
@@ -65,17 +65,17 @@ func (p *progressBar) SetSpinner(newSpinner []string) error {
 
 // WithPercent turns on/off the display of percentages
 func (p *progressBar) WithPercent(show bool) {
-	p.config.withPercent = show
+	p.withPercent = show
 }
 
 // WithSpinner turns the spinner on/off
 func (p *progressBar) WithSpinner(show bool) {
-	p.config.withSpinner = show
+	p.withSpinner = show
 }
 
 // ReverseSpinner меняет спиннер и счетчик процентов местами
 func (p *progressBar) ReverseSpinner(reverse bool) {
-	p.config.reverseSpinner = reverse
+	p.reverseSpinner = reverse
 }
 
 // GetCurrentPercent get a set percentage
