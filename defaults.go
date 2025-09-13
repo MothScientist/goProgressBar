@@ -11,7 +11,7 @@ var spinners = map[int][]string{
 	6: {"*  ", " * ", "  *"},
 }
 
-func getSpinners() map[int][]string {
+func GetSpinners() map[int][]string {
 	return spinners
 }
 
@@ -21,14 +21,13 @@ var fillers = map[int][2]string{
 	1: {"|", " "},
 	2: {"#", " "},
 	3: {"▰", "▱"},
-	4: {"⬤", "◯"},
-	5: {"■", "□"},
+	5: {"■", " "},
 	6: {"￭", "･"},
 	7: {"▮", "▯"},
 	8: {"=", "·"},
 }
 
-func getFillers() map[int][2]string {
+func GetFillers() map[int][2]string {
 	return fillers
 }
 
@@ -45,6 +44,6 @@ var edges = map[int][2]string{
 	8: {"❰", "❱"},
 }
 
-func getEdges() map[int][2]string {
+func GetEdges() map[int][2]string {
 	return edges
 }

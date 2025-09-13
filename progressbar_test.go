@@ -5,6 +5,20 @@ import (
 	"testing"
 )
 
+func TestBase(t *testing.T) {
+	bar := GetNewProgressBar()
+	bar.SetBarLen(100)
+	bar.SetSpinner(spinners[1])
+	bar.SetEdges(edges[8])
+	bar.SetFillers(fillers[7])
+	bar.WithSpinner(false)
+	bar.ReverseSpinner(true)
+	for i := range 15 {
+		result, _ := bar.Update(i + 50)
+		fmt.Println(result)
+	}
+}
+
 func TestLen(t *testing.T) {
 	bar := GetNewProgressBar()
 	bar.SetSpinner(spinners[6])
@@ -12,7 +26,7 @@ func TestLen(t *testing.T) {
 	result := len(pg)
 	expected := 172
 	if result != expected {
-		t.Errorf(`expected %d, want %d`, expected, result)
+		t.Errorf("expected %d, want %d", expected, result)
 	}
 }
 
@@ -26,7 +40,7 @@ func TestSpinnerState(t *testing.T) {
 		result := string([]rune(pg)[0])
 		expected := spinner[i]
 		if result != spinner[i] {
-			t.Errorf(`expected %s, want %s`, expected, result)
+			t.Errorf("expected %s, want %s", expected, result)
 		}
 	}
 }
@@ -36,7 +50,7 @@ func TestChangeSpinner(t *testing.T) {
 	bar.SetSpinner(spinners[6])
 	// Check that baseConfig has not been touched
 	if baseConfig.spinner[0] != spinners[0][0] {
-		t.Errorf(`baseConfig was affected by a change in the derived object, want %s`, baseConfig.spinner)
+		t.Errorf("baseConfig was affected by a change in the derived object, want %s", baseConfig.spinner)
 	}
 }
 
@@ -54,7 +68,7 @@ func TestChangeWithPercent0(t *testing.T) {
 	result2, _ := bar.Update(0)
 	percentLen := 3
 	if len(result2) != len(result1)-percentLen {
-		t.Errorf(`некорректная длина прогресс бара без процентов: %d, want %d`, len(result2), len(result1)-percentLen)
+		t.Errorf("incorrect length of progress bar without percentages: %d, want %d", len(result2), len(result1)-percentLen)
 	}
 }
 
@@ -66,7 +80,7 @@ func TestChangeWithPercent50(t *testing.T) {
 	result2, _ := bar.Update(50)
 	percentLen := 4
 	if len(result2) != len(result1)-percentLen {
-		t.Errorf(`некорректная длина прогресс бара без процентов: %d, want %d`, len(result2), len(result1)-percentLen)
+		t.Errorf("incorrect length of progress bar without percentages: %d, want %d", len(result2), len(result1)-percentLen)
 	}
 }
 
@@ -81,7 +95,7 @@ func TestWithoutColors(t *testing.T) {
 	result2 := len(pg2)
 	diff := result1 - 5
 	if diff != result2 {
-		t.Errorf(`invalid number of bytes in string when color is missing %d, want %d`, result2, diff)
+		t.Errorf("invalid number of bytes in string when color is missing %d, want %d", result2, diff)
 	}
 }
 
@@ -90,19 +104,19 @@ func TestZeroLenBar(t *testing.T) {
 	bar.SetColors([2]string{"", ""})
 	err := bar.SetBarLen(0)
 	if err != nil {
-		t.Errorf(`error bar.SetBarLen(0): %v`, err)
+		t.Errorf("error bar.SetBarLen(0): %v", err)
 	}
 	pg1, _ := bar.Update(0)
 
 	err = bar.SetBarLen(1)
 	if err != nil {
-		t.Errorf(`error bar.SetBarLen(1): %v`, err)
+		t.Errorf("error bar.SetBarLen(1): %v", err)
 	}
 	pg2, _ := bar.Update(0)
 
 	bytesOneSymbol := 3
 	if len(pg2) != len(pg1)+bytesOneSymbol {
-		t.Errorf(`invalid string length %d, want %d`, len(pg2), len(pg1)+bytesOneSymbol)
+		t.Errorf("invalid string length %d, want %d", len(pg2), len(pg1)+bytesOneSymbol)
 	}
 }
 
@@ -112,17 +126,6 @@ func TestReverseSpinner(t *testing.T) {
 	bar.ReverseSpinner(true)
 	result2, _ := bar.Update(0)
 	if len(result1) != len(result2) {
-		t.Errorf(`некорректная длина прогресс бара %d, want %d`, len(result2), len(result1))
-	}
-}
-
-func TestBase(t *testing.T) {
-	bar := GetNewProgressBar()
-	bar.SetSpinner(spinners[1])
-	bar.SetEdges(edges[8])
-	bar.SetFillers(fillers[3])
-	for i := range 15 {
-		result, _ := bar.Update(i + 50)
-		fmt.Println(result)
+		t.Errorf("incorrect progress bar length %d, want %d", len(result2), len(result1))
 	}
 }
