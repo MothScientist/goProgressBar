@@ -25,30 +25,12 @@ const (
 	colorReset         = "\033[0m"
 )
 
-// Spinners built-in spinners for progress bar
-var Spinners = map[uint8][]string{
-	0: {"⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"},
-	1: {"⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"},
-	2: {"▁", "▂", "▃", "▄", "▅", "▆", "▇"},
-	3: {"*--", "-*-", "--*"},
-	4: {".  ", ".. ", "...", " ..", "  ."},
-	5: {"*  ", "** ", "***", " **", "  *"},
-	6: {"*  ", " * ", "  *"},
-}
-
-// Fillers built-in fillers for progress bar
-var Fillers = map[uint8][2]string{
-	0: {"█", "░"},
-	1: {"|", " "},
-	2: {"#", " "},
-}
-
 // baseConfig config containing settings for visual elements of the progress bar
 var baseConfig = progressBarConfig{
-	spinner:     Spinners[0],
+	spinner:     spinners[0],
 	edges:       [2]string{"[", "]"},
 	colors:      [2]string{"", ColorGreen},
-	fillers:     Fillers[0],
+	fillers:     fillers[0],
 	withPercent: true,
 	withSpinner: true,
 }
