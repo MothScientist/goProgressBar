@@ -1,6 +1,9 @@
 package progressbar
 
-import "testing"
+import (
+	"math"
+	"testing"
+)
 
 func TestEdges(t *testing.T) {
 	originalLen := len(edges)
@@ -26,5 +29,17 @@ func TestSpinners(t *testing.T) {
 	expSpinnersLen := len(expSpinners)
 	if originalLen != expSpinnersLen {
 		t.Errorf("incorrect map length %d, want %d", expSpinnersLen, originalLen)
+	}
+}
+
+func TestChangeSpinnersMap(t *testing.T) {
+	originalLen := len(spinners)
+
+	expSpinners := GetSpinners()
+	expSpinners[math.MaxInt32] = []string{"1", "2", "3"}
+	expSpinnersLen := len(expSpinners)
+
+	if originalLen == expSpinnersLen {
+		t.Errorf("incorrect map length %d, want %d", expSpinnersLen, originalLen - 1)
 	}
 }
