@@ -1,3 +1,5 @@
+![gopher](images/pb_gopher.png)
+
 # goProgressBar
 
 - __Easy to use__
