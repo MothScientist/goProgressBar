@@ -36,8 +36,22 @@ var baseConfig = progressBarConfig{
 	reverseSpinner: false,
 }
 
+type ProgressBar interface {
+    Update(percent int) (string, error)
+	SetColors(newColors [2]string)
+	SetPercent(newPercent int) error
+	SetBarLen(newBarLen int) error
+	SetEdges(newEdges [2]string)
+	SetFillers(newFillers [2]string)
+	SetSpinner(newSpinner []string) error
+	WithPercent(show bool)
+	WithSpinner(show bool)
+	ReverseSpinner(reverse bool)
+	GetCurrentPercent() int
+}
+
 // GetNewProgressBar get the progress bar object
-func GetNewProgressBar() *progressBar {
+func GetNewProgressBar() ProgressBar {
 	return &progressBar{
 		barLen:            50,
 		percent:           0,
