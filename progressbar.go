@@ -37,7 +37,7 @@ var baseConfig = progressBarConfig{
 }
 
 type ProgressBar interface {
-    Update(percent int) (string, error)
+	Update(percent int) (string, error)
 	SetColors(newColors [2]string)
 	SetPercent(newPercent int) error
 	SetBarLen(newBarLen int) error
@@ -63,6 +63,9 @@ func GetNewProgressBar() ProgressBar {
 
 // progressBar returns the progress bar string with the current parameters
 func (p *progressBar) render() string {
+	p.mu.RLock()
+	defer p.mu.RUnlock()
+
 	occupancy := int((float32(p.barLen) / 100) * float32(p.percent))
 	fill := p.barLen - occupancy
 

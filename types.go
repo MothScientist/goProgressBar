@@ -1,7 +1,10 @@
 package progressbar
 
+import "sync"
+
 // config structure for initial settings parameters
 type progressBarConfig struct {
+	mu             sync.RWMutex
 	spinner        []string
 	edges          [2]string
 	colors         [2]string
